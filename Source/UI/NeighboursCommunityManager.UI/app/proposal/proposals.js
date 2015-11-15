@@ -1,17 +1,27 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'proposals';
-    angular.module('app').controller(controllerId, ['$interval', 'common', 'datacontext', proposals]);
+    angular.module('app').controller(controllerId, ['$interval', 'common', 'datacontext','backendHubProxy', proposals]);
 
-    function proposals($interval, common, datacontext) {
+    function proposals($interval, common, datacontext, backendHubProxy) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
+
+        console.log('trying to connect to service');
+        var hub = backendHubProxy("http://neighbourscommunityclient.azurewebsites.net/", 'stickyNotesHub');
+        console.log("connection id", hub.connectionId);
+
+
+
 
         vm.proposals = [];
         vm.title = "Proposals";
 
         vm.voteUp = function voteUp(id) {
+            hub.on('addMe', function() {
+                console.log("invoked!!!");
+            });
             datacontext.voteUp(id);
             setTimeout(function () { getProposals(); }, 500);
         }
