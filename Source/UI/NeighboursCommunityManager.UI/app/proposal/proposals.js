@@ -9,7 +9,7 @@
         var vm = this;
 
         console.log('trying to connect to service');
-        var hub = backendHubProxy("http://neighbourscommunityclient.azurewebsites.net/", 'stickyNotesHub');
+        var hub = backendHubProxy("http://neighbourscommunityclient.azurewebsites.net/signalr", 'stickyNotesHub');
         console.log("connection id", hub.connectionId);
 
 
