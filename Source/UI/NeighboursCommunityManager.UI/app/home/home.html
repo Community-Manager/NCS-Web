@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Community System</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home-navigation.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home-background.css">
+    <link rel="stylesheet" type="text/css" href="../../css/home-contacts.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse" id="modified-navbar">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" id="text-glow" href="#">Neighbours Community System</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar-collapse-2">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#home" class="modified-nav-item">Home</a></li>
+                        <li><a href="#about" class="modified-nav-item">About</a></li>
+                        <li><a href="#community" class="modified-nav-item">Community</a></li>
+                        <li><a href="#news" class="modified-nav-item">News</a></li>
+                        <li><a href="#contact" class="modified-nav-item">Contacts</a></li>
+                        <li>
+                            <span>
+                                <a class="btn btn-default btn-outline btn-circle collapsed" id="modified-btn" data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Login</a>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
+                        <form class="navbar-form navbar-right form-inline" role="form">
+                            <div class="form-group">
+                                <label class="sr-only" for="Email">Email</label>
+                                <input type="email" class="form-control" id="Email" placeholder="Email" autofocus required />
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="Password">Password</label>
+                                <input type="password" class="form-control" id="Password" placeholder="Password" required />
+                            </div>
+                            <button type="submit" class="btn btn-success" id="modified-login-btn">Go</button>
+                        </form>
+                    </div>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container -->
+        </nav><!-- /.navbar -->
+
+        <div class="home-background">
+            <img class="building" src="../../images/building.jpg" />
+        </div>
+    </div><!-- /.container-fluid -->
+    <!-- Libs -->
+    <script src="../../scripts/jquery-2.1.1.min.js"></script>
+    <script src="../../scripts/bootstrap.min.js"></script>
+</body>
+</html>
+
