@@ -5,7 +5,7 @@
                 <div class="widget wblue" ng-show="vm.proposals.length==0">
                     <div data-cc-widget-header title="No Proposals"></div>
                 </div>
-                <div id="{{p.id}}" class="widget wblue col-md-4" data-ng-repeat="p in vm.proposals">
+                <div class="widget wblue col-md-4" data-ng-repeat="p in vm.proposals">
                     <div data-cc-widget-header title="{{p.description}}"
                          right-text="{{p.author_FirstName}} {{p.author_LastName}}"
                          allow-collapse="true">
@@ -22,7 +22,7 @@
                     <div class="widget-foot">
                         <div class="clearfix"></div>
                     </div>
-                    <a ng-click="vm.voteUp(p.id)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
+                    <a id="{{p.id}}" ng-click="vm.voteUp(p.id)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
                     <a class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
                 </div>
 

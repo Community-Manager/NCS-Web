@@ -23,7 +23,9 @@
 
         return service;
 
-        function getMessageCount() { return $q.when(72); }
+        function getMessageCount() {
+            return $q.when();
+        }
 
         function getPeople() {
             var people = [
@@ -68,6 +70,7 @@
                 }, function (data) {
                     console.log(data);
                 });
+            return $q.when();
         }
 
         function login(id) {

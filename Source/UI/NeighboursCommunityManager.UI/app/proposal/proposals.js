@@ -1,29 +1,39 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'proposals';
-    angular.module('app').controller(controllerId, ['$interval', 'common', 'datacontext','backendHubProxy', proposals]);
+    angular.module('app').controller(controllerId, ['$interval', '$rootScope', 'common', 'datacontext', 'backendHubProxy', proposals]);
 
-    function proposals($interval, common, datacontext, backendHubProxy) {
+
+
+    function proposals($interval, $rootScope, common, datacontext, backendFactory) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
-
+        
         console.log('trying to connect to service');
-        var hub = backendHubProxy("http://neighbourscommunityclient.azurewebsites.net/signalr", 'stickyNotesHub');
-        console.log("connection id", hub.connectionId);
-
-
-
+        var hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
+        //var hub = backendFactory.createConnection("http://localhost:6951/", 'stickyNotesHub');
 
         vm.proposals = [];
         vm.title = "Proposals";
 
+
+        //TEST AND WORKING
+        hub.on("AddMe", function (data) {
+            getProposals();
+            
+        });
+
         vm.voteUp = function voteUp(id) {
-            hub.on('addMe', function() {
-                console.log("invoked!!!");
-            });
-            datacontext.voteUp(id);
-            setTimeout(function () { getProposals(); }, 500);
+            
+                hub.invoke('AddProposal', function (data) {
+                    console.log(data);
+                    
+                });
+
+                datacontext.voteUp(id);
+            //datacontext.voteUp(id).then(setTimeout(function () { getProposals() }, 500));
+
         }
 
         activate();
