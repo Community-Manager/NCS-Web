@@ -1,0 +1,7 @@
+﻿.contacts-info {
+    position: relative;
+    background-color:#222222;
+    width: 100vw;
+    height: 50px;
+    z-index:30;
+}

@@ -115,10 +115,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+
     <Content Include="app\authentication\authController.js" />
     <Content Include="app\authentication\login.html" />
     <Content Include="app\authentication\register.html" />
     <Content Include="app\layout\topnav.js" />
+    <Content Include="app\home\home.html" />
     <Content Include="app\proposal\proposals.html" />
     <Content Include="app\proposal\proposals.js" />
     <Content Include="app\services\backendService.js" />
@@ -129,9 +131,14 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\building.jpg" />
     <Content Include="Content\register.css" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\home-background.css" />
+    <Content Include="css\home-contacts.css" />
+    <Content Include="css\home-navigation.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="images\building.jpg" />
     <Content Include="packages.config" />
     <Content Include="scripts\angular.min.js.map" />
     <Content Include="scripts\angular-animate.min.js.map" />
