@@ -3,6 +3,7 @@
 
     var app = angular.module('app');
 
+    
     // Configure Toastr
     toastr.options.timeOut = 4000;
     toastr.options.positionClass = 'toast-bottom-right';
@@ -33,6 +34,8 @@
             $logProvider.debugEnabled(true);
         }
     }]);
+
+    
     
     //#region Configure the common services via commonConfig
     app.config(['commonConfigProvider', function (cfg) {

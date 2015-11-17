@@ -115,13 +115,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\authentication\authController.js" />
+    <Content Include="app\authentication\login.html" />
+    <Content Include="app\authentication\register.html" />
+    <Content Include="app\layout\topnav.js" />
     <Content Include="app\proposal\proposals.html" />
     <Content Include="app\proposal\proposals.js" />
     <Content Include="app\services\backendService.js" />
     <Content Include="app\services\entityManagerFactory.js" />
+    <Content Include="app\services\userService.js" />
     <Content Include="Content\breeze.directives.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\building.jpg" />
+    <Content Include="Content\register.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />

@@ -1,14 +1,17 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'proposals';
-    angular.module('app').controller(controllerId, ['$interval', '$rootScope', 'common', 'datacontext', 'backendHubProxy', proposals]);
+    angular.module('app').controller(controllerId, ['$interval', '$rootScope','$location', 'common', 'datacontext', 'backendHubProxy','userService', proposals]);
 
 
 
-    function proposals($interval, $rootScope, common, datacontext, backendFactory) {
+    function proposals($interval, $rootScope,$location, common, datacontext, backendFactory, userService) {
+        
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
+
+        vm.isLogged = userService.isLogged();
         
         console.log('trying to connect to service');
         var hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
@@ -39,7 +42,7 @@
         activate();
 
         function activate() {
-            common.activateController([getProposals()], controllerId)
+            common.activateController([getProposals(), checkLogged()], controllerId)
                 .then(function () { log('Activated Proposals View'); });
         }
 
@@ -48,6 +51,18 @@
 
                 vm.proposals = data;
                 return vm.proposals;
+            });
+        }
+
+        function checkLogged() {
+            $rootScope.$on('$routeChangeStart', function (event) {
+
+                if (!userService.isLoggedIn()) {
+                    console.log('DENY');
+                    event.preventDefault();
+                    $location.path('/login');
+                }
+                
             });
         }
     }

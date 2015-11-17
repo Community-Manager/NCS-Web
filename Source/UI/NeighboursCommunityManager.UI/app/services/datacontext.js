@@ -73,13 +73,13 @@
             return $q.when();
         }
 
-        function login(id) {
+        function login(username, pass) {
             var url = config.remoteServiceName + "token";
             
             $http({
                     method:"POST",
                     url:url,
-                    data: $.param({ username: 'archer@gmail.com', password: '123456', grant_type: "password" }),
+                    data: $.param({ username: username, password: pass, grant_type: "password" }),
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     
                 })

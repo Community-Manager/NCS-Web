@@ -3,10 +3,12 @@
     
     var controllerId = 'sidebar';
     angular.module('app').controller(controllerId,
-        ['$route', 'config', 'routes', sidebar]);
+        ['$route', 'config', 'routes', 'userService', sidebar]);
 
-    function sidebar($route, config, routes) {
+    function sidebar($route, config, routes, userService) {
         var vm = this;
+
+        vm.isLogged = userService.isLogged();
 
         vm.isCurrent = isCurrent;
 
@@ -29,5 +31,8 @@
             var menuName = route.config.title;
             return $route.current.title.substr(0, menuName.length) === menuName ? 'current' : '';
         }
+
+
+        
     };
 })();

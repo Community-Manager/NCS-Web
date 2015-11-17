@@ -21,7 +21,7 @@
         function activate() {
             var promises = [getMessageCount(), getPeople()];
             common.activateController(promises, controllerId)
-                .then(function () { log('Activated Dashboard View'); });
+                .then(function () { log(testConst); });
         }
 
         function getMessageCount() {

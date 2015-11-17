@@ -3,15 +3,17 @@
 
     var app = angular.module('app');
 
+
     // Collect the routes
     app.constant('routes', getRoutes());
-    
+
     // Configure the routes and route resolvers
     app.config(['$routeProvider', 'routes', routeConfigurator]);
     function routeConfigurator($routeProvider, routes) {
 
         routes.forEach(function (r) {
-            $routeProvider.when(r.url, r.config);
+                $routeProvider.when(r.url, r.config);
+            
         });
         $routeProvider.otherwise({ redirectTo: '/' });
     }
@@ -28,6 +30,7 @@
                         nav: 1,
                         content: '<i class="fa fa-dashboard"></i> Dashboard'
                     }
+
                 }
             }, {
                 url: '/admin',
@@ -38,8 +41,13 @@
                         nav: 2,
                         content: '<i class="fa fa-lock"></i> Admin'
                     }
+                },
+                access: {
+                    requiresLogin: true,
+                    requiredPermissions: ['Admin', 'UserManager'],
+                    permissionType: 'AtLeastOne'
                 }
-            },  {
+            }, {
                 url: '/proposals',
                 config: {
                     title: 'proposals',
@@ -47,6 +55,24 @@
                     settings: {
                         nav: 3,
                         content: '<i class="fa fa-sticky-note-o"></i> Proposals'
+                    }
+                }
+            }, {
+                url: '/register',
+                config: {
+                    title: 'register',
+                    templateUrl: 'app/authentication/register.html',
+                    settings: {
+                 
+                    }
+                }
+            }, {
+                url: '/login',
+                config: {
+                    title: 'login',
+                    templateUrl: 'app/authentication/login.html',
+                    settings: {
+
                     }
                 }
             }

@@ -25,15 +25,17 @@
 
     <link href="content/ie10mobile.css" rel="stylesheet" />
     <link href="content/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/bootstrap-theme.css" rel="stylesheet" />
     <link href="content/font-awesome.min.css" rel="stylesheet" />
     <link href="content/toastr.css" rel="stylesheet" />
     <link href="content/customtheme.css" rel="stylesheet">
     <link href="content/styles.css" rel="stylesheet" />
     <link href="content/breeze.directives.css" rel="stylesheet" />
+    <link href="content/register.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div>
+    <div id="main-div">
         <div data-ng-include="'/app/layout/shell.html'"></div>
         <div id="splash-page" data-ng-show="false">
             <div class="page-splash">
@@ -73,6 +75,8 @@
     <!--<script src="scripts/breeze.to$q.shim.js"></script>-->
     <!-- Bootstrapping -->
     <script src="app/app.js"></script>
+    <script src="app/services/userService.js"></script>
+
     <script src="app/config.js"></script>
     <script src="app/config.exceptionHandler.js"></script>
     <script src="app/config.route.js"></script>
@@ -90,6 +94,7 @@
     <script src="app/dashboard/dashboard.js"></script>
     <script src="app/layout/shell.js"></script>
     <script src="app/layout/sidebar.js"></script>
+    <script src="app/layout/topnav.js"></script>
 
     <!-- app Services -->
     <script src="app/services/datacontext.js"></script>
@@ -99,5 +104,6 @@
 
     <!--Controllers-->
     <script src="app/proposal/proposals.js"></script>
+    <script src="app/authentication/authController.js"></script>
 </body>
 </html>

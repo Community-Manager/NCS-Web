@@ -3,9 +3,14 @@
 /*For Bootstrap 3*/
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+html {
+    height: 100%; 
+}
 
 body {
     background-color: #FFF;
+    height: 100%; 
+    background-image: url("/Content/images/building.jpg");
 }
 
 .navbar-inverse {
@@ -219,6 +224,10 @@ small {
 
 .today-datas li {
     padding: 20px 14px;
+}
+
+.likes {
+    font-size: 1.5em;
 }
 
 /*#region Splash */

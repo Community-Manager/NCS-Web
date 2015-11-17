@@ -1,4 +1,4 @@
-﻿<section class="mainbar" data-ng-controller="proposals as vm">
+﻿<section ng-class="vm.isLogged ? 'mainbar' : ''" data-ng-controller="proposals as vm">
     <section class="matter">
         <div class="container">
             <div class="row">
@@ -22,8 +22,10 @@
                     <div class="widget-foot">
                         <div class="clearfix"></div>
                     </div>
-                    <a id="{{p.id}}" ng-click="vm.voteUp(p.id)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
-                    <a class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
+                    <div class="likes">
+                        <a id="{{p.id}}" ng-click="vm.voteUp(p.id)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
+                        <a class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
+                    </div>
                 </div>
 
             </div>

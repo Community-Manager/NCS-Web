@@ -22,6 +22,6 @@
     app.run(['$route', 'breeze',
         function ($route, breeze) {
         // Include $route to kick start the router.
-           
+            
         }]);        
 })();
