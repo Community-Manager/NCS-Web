@@ -14,6 +14,7 @@
         routes.forEach(function (r) {
 
             $routeProvider.when(r.url, r.config);
+
         });
 
         $routeProvider.otherwise({ redirectTo: '/' });
@@ -67,7 +68,20 @@
 
                     }
                 }
-            }, {
+            },
+            {
+                url: '/communities',
+                config: {
+                    title: 'communities',
+                    templateUrl: 'app/communities/communities.html',
+                    settings: {
+
+                    }
+                }
+
+
+            },
+            {
                 url: '/login',
                 config: {
                     title: 'login',

@@ -18,6 +18,7 @@
             getMessageCount: getMessageCount,
             getProposalsPartials: getProposalsPartials,
             register: register,
+            getAvailableCommunities: getAvailableCommunities,
             voteUp: voteUp,
             login: login
         };
@@ -89,14 +90,13 @@
                     $location.path('/');
 
                 }).error(function (data) {
+
                     console.log(data);
                     logError(data.error_description);
                     $route.reload();
                 })
             );
             $location.path('/');
-
-
         }
 
         function register(user) {
@@ -133,6 +133,32 @@
                 })
                 );
 
+        }
+
+        function getAvailableCommunities() {
+            var url = config.remoteServiceName + "api/communities/";
+            var communities = null;
+
+            var request = $http({
+                method: "get",
+                url: url,
+                params: {
+                    action: "get"
+                }
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+
+            function querySucceeded(data) {
+                communities = data;
+
+                console.log(communities);
+
+                return communities;
+            }
+
+            
         }
 
         function _queryFailed(error) {
