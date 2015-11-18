@@ -21,7 +21,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="likes">
-                        <a id="{{p.id}}" ng-click="vm.voteUp(p.id)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
+                        <a id="{{p.id}}" ng-click="vm.voteUp(p.id, vm.tokenUser)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
                         <a class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
                     </div>
                 </div>

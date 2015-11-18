@@ -118,6 +118,8 @@
     <Content Include="app\authentication\authController.js" />
     <Content Include="app\authentication\login.html" />
     <Content Include="app\authentication\register.html" />
+    <Content Include="app\communities\communities.html" />
+    <Content Include="app\communities\communitiesController.js" />
     <Content Include="app\layout\topnav.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\proposal\proposals.html" />

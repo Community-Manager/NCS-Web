@@ -7,6 +7,7 @@
     function datacontext($http, $route, $location, common, emFactory, config) {
         var EntityQuery = breeze.EntityQuery;
 
+
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
         var logError = getLogFn(serviceId, 'error');
@@ -42,10 +43,18 @@
             return $q.when(people);
         }
 
-        function getProposalsPartials() {
+        function getProposalsPartials(token) {
             var manager = emFactory.newManager("api/proposals/");
             var orderBy = 'id';
             var proposals;
+
+            var ajaxImpl = breeze.config.getAdapterInstance("ajax");
+            ajaxImpl.defaultSettings = {
+                headers: {
+                    // any CORS or other headers that you want to specify.
+                    "Authorization": "Bearer " + token
+                },
+            };
 
             return EntityQuery.from('Get')
                 .expand(['author', 'votes'])
@@ -63,13 +72,17 @@
             }
         }
 
-        function voteUp(id) {
+        function voteUp(id, token) {
             var url = config.remoteServiceName + "api/proposals/VoteUp/" + id;
 
-            $http.post(url)
-                .then(function querySucceeded(data) {
+            $http({
+                method: 'POST',
+                url: url,
+                headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .success(function querySucceeded(data) {
                     log('Voted for proposal');
-                }, function (data) {
+                }).error( function (data) {
                     console.log(data);
                 });
             return $q.when();
@@ -86,6 +99,7 @@
                 })
                 .success(function querySucceeded(data) {
                     localStorage.setItem('token', data.access_token);
+                    localStorage.setItem('userId', data.userId);
                     logSuccess(email + ' logged in.')
                     $location.path('/');
 
@@ -158,7 +172,7 @@
                 return communities;
             }
 
-            
+
         }
 
         function _queryFailed(error) {

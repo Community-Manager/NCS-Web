@@ -832,6 +832,8 @@ form {
 .mainbar .matter {
     border-top: 0px solid #ddd;
     margin: 2em;
+    margin-top: 0;
+    padding-top: 20px;
 }
 
 /* Widget */
@@ -1081,6 +1083,7 @@ form {
 
     .mainbar .matter {
         padding-left: 20px;
+        padding-top: 20px;
         padding-right: 20px;
     }
 
