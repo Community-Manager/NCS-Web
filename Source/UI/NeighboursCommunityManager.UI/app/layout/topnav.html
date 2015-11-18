@@ -9,10 +9,14 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <div class="navbar-form navbar-right">
-            <p class="btn-group"><a id="login-btn" ng-show="!vm.isLogged" class="btn btn-md btn-primary" href="#/login" role="button">Sign in</a></p>
-            <p class="btn-group"><a id="register-btn" ng-show="!vm.isLogged" class="btn btn-md btn-success" href="#/register" role="button">Sign up today</a></p>
-           <p class="btn-group"><a id="logout-btn" ng-hide="!vm.isLogged" class="btn btn-md btn-success" href="#/logout" role="button">Logout</a></p>
-          
+            <p id="user-logged-header" class="btn-group" ng-show="vm.isLogged"><i class="fa fa-user"></i>{{vm.username}}</p>
+            <p class="btn-group"><a id="login-btn" ng-hide="vm.isLogged" class="btn btn-md btn-primary" href="#/login" role="button">Sign in</a>
+            </p>
+            <p class="btn-group"><a id="register-btn" ng-hide="vm.isLogged" class="btn btn-md btn-success" href="#/register" role="button">Sign up today</a>
+            </p>
+            <p class="btn-group"><a ng-click="vm.logout()" id="logout-btn" ng-show="vm.isLogged" class="btn btn-md btn-success" href="#/logout" role="button">Logout</a>
+            </p>
+
         </div>
         </div>
 </nav>

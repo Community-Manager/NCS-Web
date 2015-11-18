@@ -1,29 +1,52 @@
-﻿(function () { 
+﻿(function () {
     'use strict';
-    
+
     var controllerId = 'sidebar';
     angular.module('app').controller(controllerId,
-        ['$route', 'config', 'routes', 'userService', sidebar]);
+        ['$route', '$scope', 'config', 'routes', 'userService', sidebar]);
 
-    function sidebar($route, config, routes, userService) {
+
+
+
+
+    function sidebar($route, $scope, config, routes, userService) {
         var vm = this;
 
-        vm.isLogged = userService.isLogged();
 
-        vm.isCurrent = isCurrent;
 
-        activate();
+        function initScope(service) {
+
+
+            vm.isLogged = service.isLogged();
+            vm.isCurrent = isCurrent;
+            activate();
+        }
+
+        initScope(userService);
+
+        $scope.$on('$routeChangeStart', function (next, current) {
+            initScope(userService);
+        });
+
+        $scope.$on('$locationChangeStart', initScope(userService));
+        $scope.$on('$locationChangeSuccess', initScope(userService));
 
         function activate() { getNavRoutes(); }
-        
+
+        function isLogged() {
+            var checkLogged = localStorage.getItem('token');
+
+            return checkLogged;
+        }
+
         function getNavRoutes() {
-            vm.navRoutes = routes.filter(function(r) {
+            vm.navRoutes = routes.filter(function (r) {
                 return r.config.settings && r.config.settings.nav;
-            }).sort(function(r1, r2) {
+            }).sort(function (r1, r2) {
                 return r1.config.settings.nav - r2.config.settings.nav;
             });
         }
-        
+
         function isCurrent(route) {
             if (!route.config.title || !$route.current || !$route.current.title) {
                 return '';
@@ -33,6 +56,6 @@
         }
 
 
-        
+
     };
 })();

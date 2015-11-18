@@ -2,13 +2,14 @@
     'use strict';
 
     var serviceId = 'userService';
-    angular.module('app').factory(serviceId, [ userService]);
+    angular.module('app').factory(serviceId, ['$location', 'common', userService]);
 
 
-    function userService() {
+    function userService($location, common) {
 
         var service = {
-            isLogged: isLogged
+            isLogged: isLogged,
+            
         };
 
         return service;
@@ -18,5 +19,9 @@
 
             return checkLogged;
         }
+
     }
+
+
+
 })();

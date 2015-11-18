@@ -2,9 +2,9 @@
     'use strict';
 
     var serviceId = 'datacontext';
-    angular.module('app').factory(serviceId, ['$http', 'common', 'entityManagerFactory', 'config', datacontext]);
+    angular.module('app').factory(serviceId, ['$http', '$route', '$location', 'common', 'entityManagerFactory', 'config', datacontext]);
 
-    function datacontext($http, common, emFactory, config) {
+    function datacontext($http, $route, $location, common, emFactory, config) {
         var EntityQuery = breeze.EntityQuery;
 
         var getLogFn = common.logger.getLogFn;
@@ -17,6 +17,7 @@
             getPeople: getPeople,
             getMessageCount: getMessageCount,
             getProposalsPartials: getProposalsPartials,
+            register: register,
             voteUp: voteUp,
             login: login
         };
@@ -66,28 +67,72 @@
 
             $http.post(url)
                 .then(function querySucceeded(data) {
-                    log('Voted for proposal', data);
+                    log('Voted for proposal');
                 }, function (data) {
                     console.log(data);
                 });
             return $q.when();
         }
 
-        function login(username, pass) {
+        function login(email, pass) {
             var url = config.remoteServiceName + "token";
-            
-            $http({
-                    method:"POST",
-                    url:url,
-                    data: $.param({ username: username, password: pass, grant_type: "password" }),
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    
+            return $q.all(
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: $.param({ username: email, password: pass, grant_type: "password" })
+
                 })
-                .then(function querySucceeded(data) {
-                    log(data);
-                }, function (data) {
+                .success(function querySucceeded(data) {
+                    localStorage.setItem('token', data.access_token);
+                    logSuccess(email + ' logged in.')
+                    $location.path('/');
+
+                }).error(function (data) {
                     console.log(data);
-                });
+                    logError(data.error_description);
+                    $route.reload();
+                })
+            );
+            $location.path('/');
+
+
+        }
+
+        function register(user) {
+            var url = config.remoteServiceName + "api/account/register";
+            return $q.all(
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        userName: user.userName,
+                        apartmentNumber: user.apartmentNumber,
+                        email: user.email,
+                        password: user.password,
+                        confirmPassword: user.confirmPassword,
+                        isAdmin: user.isAdmin,
+                        isAccountant: user.isAccountant
+
+                    },
+                    headers: { 'Content-Type': 'application/json' },
+
+                })
+                .success(function (data) {
+                    logSuccess(user.email + ' registered successfuly.')
+                    login(user.email, user.password);
+
+                }).error(function (data) {
+                    console.log(data);
+                    for (var item in data.ModelState) {
+                        logError(data.ModelState[item][0]);
+                    }
+                    logError('Wrong data. Try again!')
+                })
+                );
+
         }
 
         function _queryFailed(error) {

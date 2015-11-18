@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'dashboard';
-    angular.module('app').controller(controllerId, ['common', 'datacontext', dashboard]);
+    angular.module('app').controller(controllerId, ['common', 'datacontext','userService', dashboard]);
 
-    function dashboard(common, datacontext) {
+    function dashboard(common, datacontext, userService) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
 
@@ -15,13 +15,13 @@
         vm.messageCount = 0;
         vm.people = [];
         vm.title = 'Dashboard';
-
         activate();
 
         function activate() {
             var promises = [getMessageCount(), getPeople()];
+            
             common.activateController(promises, controllerId)
-                .then(function () { log(testConst); });
+                .then(function () { });
         }
 
         function getMessageCount() {
@@ -35,5 +35,8 @@
                 return vm.people = data;
             });
         }
+
+
+        
     }
 })();

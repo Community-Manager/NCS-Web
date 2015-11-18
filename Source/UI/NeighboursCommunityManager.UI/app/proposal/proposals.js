@@ -5,21 +5,28 @@
 
 
 
-    function proposals($interval, $rootScope,$location, common, datacontext, backendFactory, userService) {
+    function proposals($interval, $rootScope, $location, common, datacontext, backendFactory, userService) {
         
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
 
-        vm.isLogged = userService.isLogged();
-        
+
         console.log('trying to connect to service');
         var hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
         //var hub = backendFactory.createConnection("http://localhost:6951/", 'stickyNotesHub');
 
+        vm.isLogged = userService.isLogged();
         vm.proposals = [];
         vm.title = "Proposals";
 
+
+        if (!vm.isLogged) {
+            $location.path('/');
+        }
+        //$rootScope.$on('$viewContentLoaded', function () {
+           
+        //});
 
         //TEST AND WORKING
         hub.on("AddMe", function (data) {
@@ -30,7 +37,6 @@
         vm.voteUp = function voteUp(id) {
             
                 hub.invoke('AddProposal', function (data) {
-                    console.log(data);
                     
                 });
 
@@ -42,8 +48,8 @@
         activate();
 
         function activate() {
-            common.activateController([getProposals(), checkLogged()], controllerId)
-                .then(function () { log('Activated Proposals View'); });
+            common.activateController([getProposals()], controllerId)
+                .then(function () { });
         }
 
         function getProposals() {
@@ -54,16 +60,6 @@
             });
         }
 
-        function checkLogged() {
-            $rootScope.$on('$routeChangeStart', function (event) {
-
-                if (!userService.isLoggedIn()) {
-                    console.log('DENY');
-                    event.preventDefault();
-                    $location.path('/login');
-                }
-                
-            });
-        }
+        
     }
 })();

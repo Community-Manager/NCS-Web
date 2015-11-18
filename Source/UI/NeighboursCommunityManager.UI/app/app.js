@@ -7,6 +7,7 @@
         'ngRoute',          // routing
         'ngSanitize',       // sanitizes html bindings (ex: sidebar.js)
 
+
         // Custom modules 
         'common',           // common functions, logger, spinner
         'common.bootstrap', // bootstrap dialog wrapper functions
@@ -21,7 +22,10 @@
     // Handle routing errors and success events
     app.run(['$route', 'breeze',
         function ($route, breeze) {
-        // Include $route to kick start the router.
-            
+            // Include $route to kick start the router.
+            //if (localStorage.getItem('token') == '') {
+            //    localStorage.setItem('token', '');
+            //    localStorage.setItem('user', '');
+            //}
         }]);        
 })();

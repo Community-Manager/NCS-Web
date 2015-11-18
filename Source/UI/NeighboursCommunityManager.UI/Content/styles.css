@@ -67,7 +67,10 @@ body {
 /*#endregion */
 
 /* #region Main Styles */
-
+#user-logged-header {
+    color: white;
+    font-size: 1.2em;
+}
 .ng-cloak {
     display: none !important;
  }
