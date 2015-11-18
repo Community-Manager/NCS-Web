@@ -1,6 +1,30 @@
-﻿<section data-ng-controller="communities as vm">
-         TESTTESSRDYTUIUBIONPOMIUYSDFGHJKPKPKPKPKPKPKPKPKPKKP
-    
+﻿<section  data-ng-controller="communities as vm">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="widget wblue" ng-show="vm.communities.length==0">
+                    <div data-cc-widget-header title="No Communities"></div>
+                </div>
+                <div class="widget wblue col-md-4" data-ng-repeat="c in vm.communities">
+                    <div data-cc-widget-header title="{{c.Name}}"
+                         allow-collapse="true">
+                        <div class="widget-content user"></div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="padd">
+                            {{c.Description}}
+                        </div>
+                    </div>
+                    <div class="widget-foot">
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </section>
+
+
 
 
