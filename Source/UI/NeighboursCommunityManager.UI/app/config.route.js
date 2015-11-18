@@ -13,6 +13,7 @@
 
         routes.forEach(function (r) {
 
+
             $routeProvider.when(r.url, r.config);
 
         });

@@ -115,7 +115,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-
     <Content Include="app\authentication\authController.js" />
     <Content Include="app\authentication\login.html" />
     <Content Include="app\authentication\register.html" />
@@ -130,6 +129,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\building.jpg" />
+    <Content Include="Content\images\building_icon_home.png" />
     <Content Include="Content\register.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.css" />
