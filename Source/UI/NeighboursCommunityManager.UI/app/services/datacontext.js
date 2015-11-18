@@ -17,6 +17,7 @@
             getPeople: getPeople,
             getMessageCount: getMessageCount,
             getProposalsPartials: getProposalsPartials,
+            getAvailableCommunities: getAvailableCommunities,
             voteUp: voteUp,
             login: login
         };
@@ -75,19 +76,45 @@
 
         function login(username, pass) {
             var url = config.remoteServiceName + "token";
-            
+
             $http({
-                    method:"POST",
-                    url:url,
-                    data: $.param({ username: username, password: pass, grant_type: "password" }),
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    
-                })
+                method: "POST",
+                url: url,
+                data: $.param({ username: username, password: pass, grant_type: "password" }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+
+            })
                 .then(function querySucceeded(data) {
                     log(data);
                 }, function (data) {
                     console.log(data);
                 });
+        }
+
+        function getAvailableCommunities() {
+            var url = config.remoteServiceName + "api/communities/";
+            var communities = null;
+
+            var request = $http({
+                method: "get",
+                url: url,
+                params: {
+                    action: "get"
+                }
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+
+            function querySucceeded(data) {
+                communities = data;
+
+                console.log(communities);
+
+                return communities;
+            }
+
+            
         }
 
         function _queryFailed(error) {

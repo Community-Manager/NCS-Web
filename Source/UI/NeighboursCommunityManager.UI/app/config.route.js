@@ -12,8 +12,8 @@
     function routeConfigurator($routeProvider, routes) {
 
         routes.forEach(function (r) {
-                $routeProvider.when(r.url, r.config);
-            
+            $routeProvider.when(r.url, r.config);
+
         });
         $routeProvider.otherwise({ redirectTo: '/' });
     }
@@ -63,10 +63,23 @@
                     title: 'register',
                     templateUrl: 'app/authentication/register.html',
                     settings: {
-                 
+
                     }
                 }
-            }, {
+            },
+            {
+                url: '/communities',
+                config: {
+                    title: 'communities',
+                    templateUrl: 'app/communities/communities.html',
+                    settings: {
+
+                    }
+                }
+
+
+            },
+            {
                 url: '/login',
                 config: {
                     title: 'login',
