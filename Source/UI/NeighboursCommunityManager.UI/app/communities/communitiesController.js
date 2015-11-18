@@ -1,10 +1,11 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'communities';
-    angular.module('app').controller(controllerId, ['common', 'datacontext', communities]);
+    angular.module('app').controller(controllerId, ['common', 'datacontext','userService', communities]);
 
-    function communities(common, datacontext) {
+    function communities(common, datacontext, userService) {
         var vm = this;
+        vm.isLogged = userService.isLogged();
 
         activate();
 
@@ -13,6 +14,9 @@
                .then(function () { console.log('Activated Community View'); });
         }
 
+        if (!vm.isLogged) {
+            $location.path('/');
+        }
        
         function getCommunities() {
             return datacontext.getAvailableCommunities().then(function (data) {

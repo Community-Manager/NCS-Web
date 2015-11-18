@@ -76,7 +76,8 @@
                     title: 'communities',
                     templateUrl: 'app/communities/communities.html',
                     settings: {
-
+                        nav: 4,
+                        content: '<i class="fa fa-group"></i> Communities'
                     }
                 }
 
