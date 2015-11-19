@@ -54,6 +54,7 @@ Add **"WORKING"** prefix in front of each point that is currently under construc
  8. Vote for by proposal id - **(POST) -api/proposals/VoteUp/{id}**
  9. Vote against by proposal id - **(POST) -api/proposals/VoteDown/{id}**
  10. Vote neutral by proposal id - **(POST) -api/proposals/VoteNeutral/{id}**
+ 11. Get all votes for a proposal by proposalId - **(Get) -api/proposals/votes/{id}** *ResponseBody --> VoteResponseModel*
 
 **IV. InvitationController**
  1. Send Invitation - **(POST) - api/invitation** with Body { "email@domain.com" }
