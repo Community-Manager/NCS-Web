@@ -23,7 +23,8 @@
             voteUp: voteUp,
             login: login,
             getCommunitiesByUser: getCommunitiesByUser,
-            addProposal:addProposal
+            addProposal: addProposal,
+            addCommunity: addCommunity
         };
 
         return service;
@@ -150,7 +151,29 @@
             );
         }
 
+        function addCommunity(community,token) {
 
+            var url = config.remoteServiceName + "api/communities/PostCommunityByLoggedAdmin";
+
+            var request = $http({
+                method: "POST",
+                url: url,
+                params: {
+                    action: "post"
+                },
+                data: ({Name: community.Name, Description: community.Description }),
+                headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+            function querySucceeded(data) {
+                console.log('new community Added')
+                console.log(data);
+
+                $location.path('/communities');
+            }
+        }
 
         function login(email, pass) {
             var url = config.remoteServiceName + "token";

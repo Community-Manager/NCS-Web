@@ -1,17 +1,27 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'communities';
-    angular.module('app').controller(controllerId, ['$location','common', 'datacontext', 'userService', communities]);
+    angular.module('app').controller(controllerId, ['$scope','$location','common', 'datacontext', 'userService', communities]);
 
-    function communities($location, common, datacontext, userService) {
+    function communities($scope, $location, common, datacontext, userService) {
         var vm = this;
         vm.isLogged = userService.isLogged();
         vm.isAdmin = userService.isAdmin();
         vm.userId = localStorage.getItem('userId');
+        vm.tokenUser = localStorage.getItem('token');
         vm.communities = [];
         vm.community = "";
         vm.communitiesByUser = [];
-        vm.AddCommunity = null;//initial
+
+        vm.AddCommunity = function () {
+            var communityToAdd = {
+                Name: $scope.Name,
+                Description: $scope.Description,
+            }
+            console.log(communityToAdd);
+
+            datacontext.addCommunity(communityToAdd, vm.tokenUser);//
+        }
 
         vm.redirectToAddCommunity = function () {
             $location.path('/add-community');
