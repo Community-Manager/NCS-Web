@@ -18,8 +18,10 @@
                     </div>
                 </div>
                 <div class="wrapper control-group" ng-controller="communities as vm">
-                    <dropdown placeholder="Community..." list="vm.communitiesByUser" property="Name" selected="vm.community" class="ng-isolate-scope">
+                    <dropdown ng-if="vm.isAdmin" placeholder="Community..." list="vm.communities" property="Name" selected="vm.community" class="ng-isolate-scope">
+                    </dropdown>
 
+                    <dropdown ng-if="!vm.isAdmin" placeholder="Community..." list="vm.communitiesByUser" property="Name" selected="vm.community" class="ng-isolate-scope">
                     </dropdown>
                 </div>
 
