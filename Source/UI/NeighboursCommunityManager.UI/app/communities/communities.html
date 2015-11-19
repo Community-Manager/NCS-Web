@@ -1,9 +1,8 @@
-﻿<section class="mainbar"  data-ng-controller="communities as vm">
+﻿<section ng-class="vm.isLogged ? 'mainbar' : ''"   data-ng-controller="communities as vm">
     <section class="matter">
         <div class="container">
             <div class="row">
                 <div class="widget wblue" ng-show="vm.communities.length==0">
-                    <div data-cc-widget-header title="No Communities"></div>
                 </div>
                 <div class="widget wblue col-md-4" data-ng-repeat="c in vm.communities">
                     <div data-cc-widget-header title="{{c.Name}}"
