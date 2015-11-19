@@ -21,6 +21,7 @@
             register: register,
             getAvailableCommunities: getAvailableCommunities,
             voteUp: voteUp,
+            voteDown: voteDown,
             login: login,
             getCommunitiesByUser: getCommunitiesByUser,
             addProposal:addProposal
@@ -46,53 +47,32 @@
         }
 
         function getProposalsPartials(token) {
-            var url = config.remoteServiceName + "api/Proposals/Get";
-            //var manager = emFactory.newManager("api/proposals/");
+            //var url = config.remoteServiceName + "api/Proposals/Get";
+            var manager = emFactory.newManager("api/proposals/");
             //var orderBy = 'id';
             var proposals;
 
-            //var ajaxImpl = breeze.config.getAdapterInstance("ajax");
-            //ajaxImpl.defaultSettings = {
-            //    headers: {
-            //        // any CORS or other headers that you want to specify.
-            //        "Authorization": "Bearer " + token
-            //    },
-            //};
+            var ajaxImpl = breeze.config.getAdapterInstance("ajax");
+            ajaxImpl.defaultSettings = {
+                headers: {
+                    // any CORS or other headers that you want to specify.
+                    "Authorization": "Bearer " + token
+                },
+            };
+            
+            return EntityQuery.from('Get')
+                .expand(['author', 'votes'])
+                .select('id, description,title, author.firstName, author.lastName, votes')
+                .using(manager).execute()
+                .then(querySucceeded, _queryFailed);
 
-
-            return $q.all($http({
-                method: "GET",
-                url: url,
-                headers: {"Authorization": "Bearer " + token}
-                
-            }).success(function (data) {
-                proposals = data;
-                console.log('===============================')
-                console.log(data);
-                console.log('===============================')
+            function querySucceeded(data) {
+                proposals = data.results;
+                //console.log('__--__')
+                //console.log(proposals);
+                //log('Retrieved [Proposal Partials] from remote data source', proposals.length, true);
                 return proposals;
-
-
-            }).error(function(data) {
-
-            }));
-
-
-            //return EntityQuery.from('Get')
-            //    .expand(['author', 'votes'])
-            //    .select('id, description,title, author.firstName, author.lastName, votes')
-            //    .orderBy(orderBy)
-            //    .toType('Proposal')
-            //    .using(manager).execute()
-            //    .then(querySucceeded, _queryFailed);
-
-            //function querySucceeded(data) {
-            //    proposals = data.results;
-            //    console.log('__--__')
-            //    console.log(proposals);
-            //    log('Retrieved [Proposal Partials] from remote data source', proposals.length, true);
-            //    return proposals;
-            //}
+            }
         }
 
         function voteUp(id, token) {
@@ -104,7 +84,31 @@
                 headers: { 'Authorization': 'Bearer ' + token }
             })
                 .success(function querySucceeded(data) {
-                    log('Voted for proposal');
+                    if (data == 1) {
+                        logSuccess('Voted up for proposal ' + id);
+                    } else if (data == 0) {
+                        log('Removed vote for proposal ' + id);
+                    }
+                }).error(function (data) {
+                    console.log(data);
+                });
+            return $q.when();
+        }
+
+        function voteDown(id, token) {
+            var url = config.remoteServiceName + "api/proposals/VoteDown/" + id;
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+                .success(function querySucceeded(data) {
+                    if (data == 1) {
+                        logSuccess('Voted down for proposal ' + id);
+                    }else if (data == 0) {
+                        log('Removed vote for proposal ' + id);
+                    }
                 }).error(function (data) {
                     console.log(data);
                 });

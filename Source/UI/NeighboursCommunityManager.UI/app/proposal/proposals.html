@@ -8,7 +8,7 @@
                     <div data-cc-widget-header title="No Proposals"></div>
                 </div>
                 <div class="widget wblue col-md-4" data-ng-repeat="p in vm.proposals">
-                    <div data-cc-widget-header title="{{p.Title}}"
+                    <div data-cc-widget-header title="{{p.title}}"
                          right-text="{{p.author_FirstName}} {{p.author_LastName}}">
                         <div class="widget-content user"></div>
                     </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="likes">
                         <a id="{{p.id}}" ng-click="vm.voteUp(p.id, vm.tokenUser)" class="fa fa-thumbs-up"><i data-ng-repeat="vote in filteredUp = (p.votes |filter:{optionId:1})">{{filteredUp.length}}</i><i ng-hide="filteredUp.length">0</i></a>
-                        <a class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
+                        <a ng-click="vm.voteDown(p.id, vm.tokenUser)" class="fa fa-thumbs-down"><i data-ng-repeat="vote in filteredDown = (p.votes |filter:{optionId:2})">{{filteredDown.length}}</i><i ng-hide="filteredDown.length">0</i></a>
                     </div>
                 </div>
 
