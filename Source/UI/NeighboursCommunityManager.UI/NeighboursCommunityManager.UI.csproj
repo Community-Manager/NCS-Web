@@ -118,6 +118,7 @@
     <Content Include="app\authentication\authController.js" />
     <Content Include="app\authentication\login.html" />
     <Content Include="app\authentication\register.html" />
+    <Content Include="app\communities\add-community.html" />
     <Content Include="app\communities\communities.html" />
     <Content Include="app\communities\communitiesController.js" />
     <Content Include="app\directives\dropdown.js" />
