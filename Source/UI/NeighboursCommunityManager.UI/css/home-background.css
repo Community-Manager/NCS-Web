@@ -1,14 +1,22 @@
 ﻿body {
     position: relative;
-    background-color:#222222;
+    background-color: #222222;
 }
 
-.home-background {
+/*.home-background {
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
+}*/
+
+html {
+    background: url(../images/building.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .building {
@@ -28,5 +36,5 @@
 }
 
 #modified-navbar {
-    border:none;
+    border: none;
 }
