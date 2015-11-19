@@ -1,6 +1,7 @@
 ﻿<section ng-class="vm.isLogged ? 'mainbar' : ''"   data-ng-controller="communities as vm">
     <section class="matter">
         <div class="container">
+            <input ng-if="vm.isAdmin" ng-click="vm.redirectToAddCommunity()" type="button" class="community-btn btn btn-success btn-large" value="Add New Community" />
             <div class="row">
                 <div class="widget wblue" ng-show="vm.communities.length==0">
                 </div>

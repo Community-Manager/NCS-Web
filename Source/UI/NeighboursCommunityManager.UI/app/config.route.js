@@ -102,6 +102,16 @@
 
                     }
                 }
+            },
+            {
+                url: '/add-community',
+                config: {
+                    title: 'add-community',
+                    templateUrl: 'app/communities/add-community.html',
+                    settings: {
+
+                    }
+                }
             }
 
         ];

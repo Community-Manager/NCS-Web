@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'communities';
-    angular.module('app').controller(controllerId, ['common', 'datacontext', 'userService', communities]);
+    angular.module('app').controller(controllerId, ['$location','common', 'datacontext', 'userService', communities]);
 
-    function communities(common, datacontext, userService) {
+    function communities($location, common, datacontext, userService) {
         var vm = this;
         vm.isLogged = userService.isLogged();
         vm.isAdmin = userService.isAdmin();
@@ -11,6 +11,11 @@
         vm.communities = [];
         vm.community = "";
         vm.communitiesByUser = [];
+        vm.AddCommunity = null;//initial
+
+        vm.redirectToAddCommunity = function () {
+            $location.path('/add-community');
+        }
 
         if (!vm.isLogged) {
             $location.path('/');
