@@ -24,7 +24,8 @@
             login: login,
             getCommunitiesByUser: getCommunitiesByUser,
             addProposal: addProposal,
-            addCommunity: addCommunity
+            addCommunity: addCommunity,
+            registerAdminAndCommunity: registerAdminAndCommunity
         };
 
         return service;
@@ -173,6 +174,41 @@
 
                 $location.path('/communities');
             }
+        }
+
+        function registerAdminAndCommunity(userWithCommunity) {
+            var url = config.remoteServiceName + "api/communities/Post";
+
+            var request = $http({
+                method: "POST",
+                url: url,
+                params: {
+                    action: "post"
+                },
+                data: ({
+                    email: userWithCommunity.email,
+                    password: userWithCommunity.password,
+                    firstname:userWithCommunity.firstName,
+                    lastname: userWithCommunity.lastName,
+                    appartmentnumber: userWithCommunity.apartmentNumber,
+                    communitymodel: {
+                        name:communityName,
+                        description:communityDescription
+                    },
+                }),
+                headers: {'Content-Type': 'application/json' },
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+            function querySucceeded(data) {
+                console.log('new community and ADMIN Added')
+                console.log(data);
+
+                $location.path('/communities');
+            }
+
+
         }
 
         function login(email, pass) {

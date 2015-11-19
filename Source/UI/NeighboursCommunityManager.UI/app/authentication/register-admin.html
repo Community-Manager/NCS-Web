@@ -1,0 +1,78 @@
+﻿<section data-ng-controller="auth as vm">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row">
+                                 Register as Admin of new Community
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form id="register-form" method="post" role="form">
+                                        <div class="form-group">
+                                            <input type="text" name="first-name" ng-model="fnameAdmin" id="first-name" tabindex="1" class="form-control"
+                                                   placeholder="First Name" ng-maxlength=40 value="" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="last-name" id="last-name" ng-model="lnameAdmin" tabindex="2" class="form-control"
+                                                   placeholder="Last Name" value="" ng-maxlength=40 required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" name="apt-num" id="apt-num" ng-model="aptnumAdmin" tabindex="3" class="form-control"
+                                                   placeholder="Apartment Number" value="" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="username" id="username" ng-model="unameAdmin" tabindex="4" class="form-control"
+                                                   placeholder="Username" value="" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="email" id="email" ng-model="emailAdmin" tabindex="5" class="form-control"
+                                                   placeholder="Email Address" value="" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" ng-model="passAdmin" id="password" tabindex="6"
+                                                   class="form-control"
+                                                   placeholder="Password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="confirm-password" ng-model="confirmPassAdmin" id="confirm-password" tabindex="7"
+                                                   class="form-control" placeholder="Confirm Password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="verification-token" ng-model="verificationTokenAdmin" id="verification-token" tabindex="8"
+                                                   class="form-control" placeholder="Verification token" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="community-name" ng-model="communityName" id="community-name" tabindex="8"
+                                                   class="form-control" placeholder="New community name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="community-description" ng-model="communityDescription" id="community-description" tabindex="8"
+                                                   class="form-control" placeholder="New community description" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-sm-offset-3">
+                                                    <button ng-click="vm.registerAdmin()" name="register-submit" id="register-submit"
+                                                            class="form-control btn btn-register">
+                                                        Register New Community
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>

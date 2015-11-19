@@ -117,6 +117,7 @@
   <ItemGroup>
     <Content Include="app\authentication\authController.js" />
     <Content Include="app\authentication\login.html" />
+    <Content Include="app\authentication\register-admin.html" />
     <Content Include="app\authentication\register.html" />
     <Content Include="app\communities\add-community.html" />
     <Content Include="app\communities\communities.html" />
@@ -252,6 +253,7 @@
     <Compile Include="App_Start\BreezeWebApiConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

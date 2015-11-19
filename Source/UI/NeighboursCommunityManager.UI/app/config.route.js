@@ -94,6 +94,16 @@
                 }
             },
             {
+                url: '/register-admin',
+                config: {
+                    title: 'register-admin',
+                    templateUrl: 'app/authentication/register-admin.html',
+                    settings: {
+
+                    }
+                }
+            },
+            {
                 url: '/add-proposal',
                 config: {
                     title: 'add-proposal',
