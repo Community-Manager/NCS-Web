@@ -22,8 +22,8 @@
                 email: $scope.email,
                 password: $scope.pass,
                 confirmPassword: $scope.confirmPass,
-                isAdmin: false,
-                isAccountant: false
+                verificationToken: $scope.verificationToken,
+                isAdmin: false
 
             }
             localStorage.setItem('user', $scope.email);

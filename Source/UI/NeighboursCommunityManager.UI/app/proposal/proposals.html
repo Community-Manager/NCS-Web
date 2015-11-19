@@ -1,12 +1,14 @@
 ﻿<section ng-class="vm.isLogged ? 'mainbar' : ''" data-ng-controller="proposals as vm">
     <section class="matter">
         <div class="container">
+            <input ng-click="vm.redirectToAdd()" type="button" class="proposal-btn btn btn-success btn-large" value="Add Proposal" />
+
             <div class="row">
                 <div class="widget wblue" ng-show="vm.proposals.length==0">
                     <div data-cc-widget-header title="No Proposals"></div>
                 </div>
                 <div class="widget wblue col-md-4" data-ng-repeat="p in vm.proposals">
-                    <div data-cc-widget-header title="{{p.description}}"
+                    <div data-cc-widget-header title="{{p.Title}}"
                          right-text="{{p.author_FirstName}} {{p.author_LastName}}">
                         <div class="widget-content user"></div>
                     </div>

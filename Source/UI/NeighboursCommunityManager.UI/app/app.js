@@ -27,5 +27,6 @@
             //    localStorage.setItem('token', '');
             //    localStorage.setItem('user', '');
             //}
+
         }]);        
 })();

@@ -1,0 +1,39 @@
+﻿<section ng-class="vm.isLogged ? 'mainbar' : ''" data-ng-controller="proposals as vm" ng-app="demo">
+    <section class="matter">
+        <div class="container">
+            <form class="col-lg-10 proposal-add">
+
+                <div class="control-group">
+                    <label class="control-label" for="proposalTitle"><i class="fa fa-lightbulb-o"></i> Proposal Title</label>
+                    <div class="controls controls-row">
+                        <input type="text" class="form-control input-lg" ng-model="title" id="proposalTitle" placeholder="Title">
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label" for="proposalText"><i class="fa fa-sticky-note"></i> Proposal Text</label>
+                    <div class="controls">
+                        <textarea rows="10" class="form-control input-lg" ng-model="description" id="proposalText" placeholder="Your ideas?"></textarea>
+                    </div>
+                </div>
+                <div class="wrapper control-group" ng-controller="communities as vm">
+                    <dropdown placeholder="Community..." list="vm.communitiesByUser" property="Name" selected="vm.community" class="ng-isolate-scope">
+
+                    </dropdown>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <input ng-click="vm.addProposal()" type="button" class="btn btn-large btn-success proposal-btn" value="Add Proposal" />
+                    </div>
+
+                    <br class="clear">
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+
+
+

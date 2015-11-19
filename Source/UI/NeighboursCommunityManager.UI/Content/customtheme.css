@@ -56,7 +56,7 @@ input[type="radio"], input[type="checkbox"] {
 .btn {
     background-image: none !important;
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    font-size: 13px !important;
+    font-size: 13px;
 }
 
     .btn.btn-mini {
@@ -165,7 +165,7 @@ a.btn {
 
 .control-label{
     font-weight: 400 !important;
-    font-size: 14px;
+    
 }
 
 .badge {
@@ -356,11 +356,10 @@ form {
 }
 
     form input, form button, form textarea, form select {
-        font-size: 13px !important;
+        font-size: 13px
     }
 
     form label {
-        font-size: 13px;
         line-height: 13px;
     }
 

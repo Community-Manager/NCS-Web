@@ -21,7 +21,9 @@
             register: register,
             getAvailableCommunities: getAvailableCommunities,
             voteUp: voteUp,
-            login: login
+            login: login,
+            getCommunitiesByUser: getCommunitiesByUser,
+            addProposal:addProposal
         };
 
         return service;
@@ -44,32 +46,53 @@
         }
 
         function getProposalsPartials(token) {
-            var manager = emFactory.newManager("api/proposals/");
-            var orderBy = 'id';
+            var url = config.remoteServiceName + "api/Proposals/Get";
+            //var manager = emFactory.newManager("api/proposals/");
+            //var orderBy = 'id';
             var proposals;
 
-            var ajaxImpl = breeze.config.getAdapterInstance("ajax");
-            ajaxImpl.defaultSettings = {
-                headers: {
-                    // any CORS or other headers that you want to specify.
-                    "Authorization": "Bearer " + token
-                },
-            };
+            //var ajaxImpl = breeze.config.getAdapterInstance("ajax");
+            //ajaxImpl.defaultSettings = {
+            //    headers: {
+            //        // any CORS or other headers that you want to specify.
+            //        "Authorization": "Bearer " + token
+            //    },
+            //};
 
-            return EntityQuery.from('Get')
-                .expand(['author', 'votes'])
-                .select('id, description, author.firstName, author.lastName, votes')
-                .orderBy(orderBy)
-                .toType('Proposal')
-                .using(manager).execute()
-                .then(querySucceeded, _queryFailed);
 
-            function querySucceeded(data) {
-                proposals = data.results;
-                console.log(proposals);
-                log('Retrieved [Proposal Partials] from remote data source', proposals.length, true);
+            return $q.all($http({
+                method: "GET",
+                url: url,
+                headers: {"Authorization": "Bearer " + token}
+                
+            }).success(function (data) {
+                proposals = data;
+                console.log('===============================')
+                console.log(data);
+                console.log('===============================')
                 return proposals;
-            }
+
+
+            }).error(function(data) {
+
+            }));
+
+
+            //return EntityQuery.from('Get')
+            //    .expand(['author', 'votes'])
+            //    .select('id, description,title, author.firstName, author.lastName, votes')
+            //    .orderBy(orderBy)
+            //    .toType('Proposal')
+            //    .using(manager).execute()
+            //    .then(querySucceeded, _queryFailed);
+
+            //function querySucceeded(data) {
+            //    proposals = data.results;
+            //    console.log('__--__')
+            //    console.log(proposals);
+            //    log('Retrieved [Proposal Partials] from remote data source', proposals.length, true);
+            //    return proposals;
+            //}
         }
 
         function voteUp(id, token) {
@@ -79,14 +102,55 @@
                 method: 'POST',
                 url: url,
                 headers: { 'Authorization': 'Bearer ' + token }
-                })
+            })
                 .success(function querySucceeded(data) {
                     log('Voted for proposal');
-                }).error( function (data) {
+                }).error(function (data) {
                     console.log(data);
                 });
             return $q.when();
         }
+
+        function getRole(userId, token) {
+            var url = config.remoteServiceName + "api/Account/Role"
+            return $q.all(
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: ({ userId: userId }),
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .success(function querySucceeded(data) {
+                    localStorage.setItem('isAdmin', data);
+                    $location.path('/');
+                }).error(function (data) {
+
+
+                })
+            );
+        }
+
+        function addProposal(proposal, token) {
+            var url = config.remoteServiceName + "api/Proposals/Post"
+            return $q.all(
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: ({ description: proposal.description, title: proposal.title, communityName: proposal.community }),
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .success(function querySucceeded(data) {
+                    console.log('============ADDDDDDD=============');
+                    
+                    $location.path('/proposals');
+                }).error(function (data) {
+
+
+                })
+            );
+        }
+
+
 
         function login(email, pass) {
             var url = config.remoteServiceName + "token";
@@ -101,11 +165,12 @@
                     localStorage.setItem('token', data.access_token);
                     localStorage.setItem('userId', data.userId);
                     logSuccess(email + ' logged in.')
-                    $location.path('/');
+                    getRole(data.userId, data.access_token);   
+                    
 
                 }).error(function (data) {
 
-                    console.log(data);
+                    //console.log(data);
                     logError(data.error_description);
                     $route.reload();
                 })
@@ -167,11 +232,34 @@
             function querySucceeded(data) {
                 communities = data;
 
-                console.log(communities);
+                //console.log(communities);
 
                 return communities;
             }
 
+
+        }
+
+        function getCommunitiesByUser(userId) {
+            var url = config.remoteServiceName + "api/communities?userId="+userId;
+            var communities = null;
+
+            return $q.all($http({
+                method: "get",
+                url: url,
+                params: {
+                    action: "get"
+                }
+            }).success(function (data) {
+                //console.log('===============================')
+                //console.log(data);
+                //console.log('===============================')
+
+            }).error(function(data) {
+
+            }));
+
+            
 
         }
 

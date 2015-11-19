@@ -92,6 +92,16 @@
 
                     }
                 }
+            },
+            {
+                url: '/add-proposal',
+                config: {
+                    title: 'add-proposal',
+                    templateUrl: 'app/proposal/add-proposal.html',
+                    settings: {
+
+                    }
+                }
             }
 
         ];

@@ -9,6 +9,7 @@
 
         var service = {
             isLogged: isLogged,
+            isAdmin: isAdmin
             
         };
 
@@ -18,6 +19,12 @@
             var checkLogged = localStorage.getItem('token');
 
             return checkLogged;
+        }
+
+        function isAdmin() {
+            var checkAdmin = localStorage.getItem('isAdmin');
+
+            return checkAdmin;
         }
 
     }
