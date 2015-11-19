@@ -27,27 +27,34 @@ Add **"WORKING"** prefix in front of each point that is currently under construc
  10. Get all Users that have concrete tax which is not paid **(GET) api/user/taxes-not-paid/{tax-id}**
 (Example: Tax - "Elevator electricity and support" -> Ivan, Gosho, Marto, Mariyan have not paid)
 
-**II. TaxController**
+**II. TaxController - READY**
+*Authorization: Administrator, Accountant*
 
- 1. Create Tax - **(POST) - api/tax**
- 2. Update Tax by ID - **(PUT) - api/tax/{id}**
- 3. Delete Tax by ID - **(DELETE) - api/tax/{id}**
- 4. Get Tax by ID - **(GET) - api/tax/{id}**
- 5. Get all Taxes - **(GET) - api/tax**
- 6. Get all Taxes which are available for payment - **(GET) - api/taxes/available**
- 7. Get all Taxes which are not-available for payment (their deadline has passed) - **(GET) - api/taxes/expired**
+ 1. Create Tax - **(POST) - api/taxes** -> RequestBody *TaxRequestTransferMode.cs*
+ 2. Get Tax by Id - **(GET) - api/taxes/get/{id}** 
+ 3. Update Tax by ID - **(PUT) - api/taxes/update/{id}** -> RequestBody *TaxDataTransferMode.cs*
+ 4. Delete Tax by ID - **(DELETE) - api/taxes/delete/{id}** *marks as deleted*
+ 5. Remove Tax by ID - **(DELETE) - api/taxes/remove/{id}** *removes entity from DB*
+ 6. Get all Taxes - **(GET) - api/taxes** *Removed- users should not be able to get all taxes in the system*
+ 7. Get all Taxes by CommunityId - **(GET) - api/taxes/community/{id}**
+ 8. Get all Taxes which are available for payment by community ID - **(GET) - api/taxes/available/{id}**
+ 9. Get all Taxes which are not-available for payment (their deadline has passed) for current community - **(GET) - api/taxes/expired/{id}**
+ 10. Create payment for a tax or update if same user has already paid - ** (POST) - api/taxes/addpayment/{id}**
+ 	-> RequestBody *TaxPaymentRequestModel.cs*
 
-**III. ProposalController**
+**III. ProposalsController**
 
- 1. Create Proposal - **(POST) - api/proposal**
- 2. Update Proposal by ID - **(PUT) - api/proposal/{id}**
- 3. Delete Proposal by ID - **(DELETE) - api/proposal/{id}**
- 4. Delete all Proposals by given AuthorID - **(DELETE) - api/proposal/{author-id}**
- 5. Get Proposal by ID - **(GET) - api/proposal/{id}**
- 6. Get all Proposals - **(GET) -api/proposal**
- 7. Get all Proposals by given AuthorID - **(GET) - api/proposal/{author-id}**
- 8. Get all Proposals which are Approved - **(GET) - api/proposal/approved**
- 9. Get all Proposals which are Pending approval - **(GET) - api/proposal/pending**
+ 1. Create Proposal - **(POST) - api/proposals** *--> RequestBody: ProposalDataTransferModel*
+ 2. Update Proposal by ID - **(PUT) - api/proposals/{id}** *-- N/A *
+ 3. Delete Proposal by ID - **(DELETE) - api/proposals/{id}** *-- N/A *
+ 4. Delete all Proposals by given AuthorID - **(DELETE) - api/proposals/{author-id}** *-- N/A *
+ 5. Get Proposal by ID - **(GET) - api/proposals/{id}** *-- N/A *
+ 6. Get all Proposals - **(GET) -api/proposals**
+ 7. Get all Proposals by ComunityId - **(GET) -api/proposals/getByCommunity/{id}**
+ 8. Vote for by proposal id - **(POST) -api/proposals/VoteUp/{id}**
+ 9. Vote against by proposal id - **(POST) -api/proposals/VoteDown/{id}**
+ 10. Vote neutral by proposal id - **(POST) -api/proposals/VoteNeutral/{id}**
+ 11. Get all votes for a proposal by proposalId - **(Get) -api/proposals/votes/{id}** *ResponseBody --> VoteResponseModel*
 
 **IV. InvitationController**
  1. Send Invitation - **(POST) - api/invitation** with Body { "email@domain.com" }

@@ -94,10 +94,30 @@
                 }
             },
             {
+                url: '/register-admin',
+                config: {
+                    title: 'register-admin',
+                    templateUrl: 'app/authentication/register-admin.html',
+                    settings: {
+
+                    }
+                }
+            },
+            {
                 url: '/add-proposal',
                 config: {
                     title: 'add-proposal',
                     templateUrl: 'app/proposal/add-proposal.html',
+                    settings: {
+
+                    }
+                }
+            },
+            {
+                url: '/add-community',
+                config: {
+                    title: 'add-community',
+                    templateUrl: 'app/communities/add-community.html',
                     settings: {
 
                     }

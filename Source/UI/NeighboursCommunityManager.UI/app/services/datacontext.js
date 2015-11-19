@@ -24,7 +24,9 @@
             voteDown: voteDown,
             login: login,
             getCommunitiesByUser: getCommunitiesByUser,
-            addProposal:addProposal
+            addProposal: addProposal,
+            addCommunity: addCommunity,
+            registerAdminAndCommunity: registerAdminAndCommunity
         };
 
         return service;
@@ -154,7 +156,64 @@
             );
         }
 
+        function addCommunity(community,token) {
 
+            var url = config.remoteServiceName + "api/communities/PostCommunityByLoggedAdmin";
+
+            var request = $http({
+                method: "POST",
+                url: url,
+                params: {
+                    action: "post"
+                },
+                data: ({Name: community.Name, Description: community.Description }),
+                headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+            function querySucceeded(data) {
+                console.log('new community Added')
+                console.log(data);
+
+                $location.path('/communities');
+            }
+        }
+
+        function registerAdminAndCommunity(userWithCommunity) {
+            var url = config.remoteServiceName + "api/communities/Post";
+
+            var request = $http({
+                method: "POST",
+                url: url,
+                params: {
+                    action: "post"
+                },
+                data: ({
+                    email: userWithCommunity.email,
+                    password: userWithCommunity.password,
+                    firstname:userWithCommunity.firstName,
+                    lastname: userWithCommunity.lastName,
+                    appartmentnumber: userWithCommunity.apartmentNumber,
+                    communitymodel: {
+                        name:communityName,
+                        description:communityDescription
+                    },
+                }),
+                headers: {'Content-Type': 'application/json' },
+            });
+
+            return (request.then(querySucceeded, _queryFailed));
+
+            function querySucceeded(data) {
+                console.log('new community and ADMIN Added')
+                console.log(data);
+
+                $location.path('/communities');
+            }
+
+
+        }
 
         function login(email, pass) {
             var url = config.remoteServiceName + "token";

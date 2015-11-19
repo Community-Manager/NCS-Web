@@ -1,0 +1,33 @@
+﻿<section ng-class="vm.isLogged ? 'mainbar' : ''" data-ng-controller="communities as vm" ng-app="demo">
+    <section class="matter">
+        <div class="container">
+            <form class="col-lg-10 community-add">
+
+                <div class="control-group">
+                    <label class="control-label" for="communityName"><i class="fa fa-building-o"></i> Community Name</label>
+                    <div class="controls controls-row">
+                        <input type="text" class="form-control input-lg" ng-model="Name" id="communityName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="communityText"><i class="fa fa-sticky-note"></i> Community Text</label>
+                    <div class="controls">
+                        <textarea rows="10" class="form-control input-lg" ng-model="Description" id="communityText" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <br class="clear">
+                <div class="control-group">
+                    <div class="controls">
+                        <input ng-click="vm.AddCommunity()" type="button" class="btn btn-large btn-success proposal-btn" value="Add Community" />
+                    </div>
+
+                    <br class="clear">
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+
+
+
+

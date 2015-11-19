@@ -46,11 +46,37 @@
 
         }
 
-        activate();
+        vm.registerAdmin = function () {
 
-        function activate() {
-            common.activateController([], controllerId)
-               .then(function () { });
-        }
+            var userWithCommunity = {
+                firstName: $scope.fnameAdmin,
+                lastName: $scope.lnameAdmin,
+                userName: $scope.unameAdmin,
+                apartmentNumber: $scope.aptnumAdmin,
+                email: $scope.emailAdmin,
+                password: $scope.passAdmin,
+                confirmPassword: $scope.confirmPassAdmin,
+                verificationToken: $scope.verificationTokenAdmin,
+                communityModel:{
+                    communityName: $scope.communityName,
+                    communityDescription: $scope.communityDescription
+                },
+                isAdmin: true
+            }
+
+            console.log(userWithCommunity);
+
+            localStorage.setItem('user', $scope.email);
+
+            datacontext.registerAdminAndCommunity(userWithCommunity);
+
     }
+
+    activate();
+
+    function activate() {
+        common.activateController([], controllerId)
+           .then(function () { });
+    }
+}
 })();
