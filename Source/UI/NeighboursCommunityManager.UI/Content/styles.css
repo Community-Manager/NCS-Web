@@ -12,8 +12,13 @@ html {
 body {
     background-color: #FFF;
     height: 100%;
-    background-image: url("/Content/images/building.jpg");
-    background-position-y: -250px;
+
+    background: url("/Content/images/building.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
 }
 
 
