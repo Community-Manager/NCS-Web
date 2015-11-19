@@ -42,17 +42,18 @@ Add **"WORKING"** prefix in front of each point that is currently under construc
  10. Create payment for a tax or update if same user has already paid - ** (POST) - api/taxes/addpayment/{id}**
  	-> RequestBody *TaxPaymentRequestModel.cs*
 
-**III. ProposalController**
+**III. ProposalsController**
 
- 1. Create Proposal - **(POST) - api/proposal**
- 2. Update Proposal by ID - **(PUT) - api/proposal/{id}**
- 3. Delete Proposal by ID - **(DELETE) - api/proposal/{id}**
- 4. Delete all Proposals by given AuthorID - **(DELETE) - api/proposal/{author-id}**
- 5. Get Proposal by ID - **(GET) - api/proposal/{id}**
- 6. Get all Proposals - **(GET) -api/proposal**
- 7. Get all Proposals by given AuthorID - **(GET) - api/proposal/{author-id}**
- 8. Get all Proposals which are Approved - **(GET) - api/proposal/approved**
- 9. Get all Proposals which are Pending approval - **(GET) - api/proposal/pending**
+ 1. Create Proposal - **(POST) - api/proposals** *--> RequestBody: ProposalDataTransferModel*
+ 2. Update Proposal by ID - **(PUT) - api/proposals/{id}** *-- N/A *
+ 3. Delete Proposal by ID - **(DELETE) - api/proposals/{id}** *-- N/A *
+ 4. Delete all Proposals by given AuthorID - **(DELETE) - api/proposals/{author-id}** *-- N/A *
+ 5. Get Proposal by ID - **(GET) - api/proposals/{id}** *-- N/A *
+ 6. Get all Proposals - **(GET) -api/proposals**
+ 7. Get all Proposals by ComunityId - **(GET) -api/proposals/getByCommunity/{id}**
+ 8. Vote for by proposal id - **(POST) -api/proposals/VoteUp/{id}**
+ 9. Vote against by proposal id - **(POST) -api/proposals/VoteDown/{id}**
+ 10. Vote neutral by proposal id - **(POST) -api/proposals/VoteNeutral/{id}**
 
 **IV. InvitationController**
  1. Send Invitation - **(POST) - api/invitation** with Body { "email@domain.com" }
