@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'proposals';
-    angular.module('app').controller(controllerId, ['$interval', '$rootScope', '$scope', '$location', 'common', 'datacontext', 'backendHubProxy', 'userService', proposals]);
+    angular.module('app').controller(controllerId, ['$interval','$route', '$rootScope', '$scope', '$location', 'common', 'datacontext', 'backendHubProxy', 'userService', proposals]);
 
-    function proposals($interval, $rootScope, $scope, $location, common, datacontext, backendFactory, userService) {
+    function proposals($interval,$route, $rootScope, $scope, $location, common, datacontext, backendFactory, userService) {
 
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -12,6 +12,17 @@
         console.log('trying to connect to service');
         var hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
         //var hub = backendFactory.createConnection("http://localhost:6951/", 'stickyNotesHub');
+
+        $scope.$on('$routeChangeStart', function () {
+            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
+        });
+
+        $scope.$on('$locationChangeStart', function() {
+            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
+        });
+        $scope.$on('$locationChangeSuccess', function() {
+            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
+        });
 
         vm.isLogged = userService.isLogged();
         vm.proposals = [];
@@ -34,15 +45,26 @@
             setTimeout(getProposals(token),1000);
         });
 
+        hub.on("refreshAndRedirect", function (data) {
+            setTimeout(getProposals(token), 1000);
+
+            var currentRoute = $route.current;
+
+            if (currentRoute.loadedTemplateUrl === 'app/proposal/proposals.html') {
+                $route.reload();
+            } 
+
+        });
+
         vm.voteUp = function voteUp(id, token) {
             console.log('vote');
-            hub.invoke('VoteUpProposal', function (data) {
+            hub.invoke('VoteProposal', function (data) {
                 datacontext.voteUp(id, token).then(setTimeout(function () { getProposals(token) },0));
             });
         }
 
         vm.voteDown = function voteDown(id, token) {
-            hub.invoke('VoteUpProposal', function (data) {
+            hub.invoke('VoteProposal', function (data) {
                 datacontext.voteDown(id, token).then(setTimeout(function () { getProposals(token) }, 0));
             });
         }
@@ -54,10 +76,11 @@
                 description: $scope.description,
                 community: localStorage.getItem('community')
             }
+            hub.invoke('AddProposal', function (data) {
+                datacontext.addProposal(proposal, vm.tokenUser);
 
-            datacontext.addProposal(proposal, vm.tokenUser);
-
-            localStorage.removeItem('community');
+                localStorage.removeItem('community');
+            });
         }
 
         activate();

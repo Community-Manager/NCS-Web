@@ -146,8 +146,6 @@
                     headers: { 'Authorization': 'Bearer ' + token }
                 })
                 .success(function querySucceeded(data) {
-                    console.log('============ADDDDDDD=============');
-                    
                     $location.path('/proposals');
                 }).error(function (data) {
 
