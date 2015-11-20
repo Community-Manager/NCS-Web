@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'proposals';
-    angular.module('app').controller(controllerId, ['$interval','$route', '$rootScope', '$scope', '$location', 'common', 'datacontext', 'backendHubProxy', 'userService', proposals]);
+    angular.module('app').controller(controllerId, ['$interval', '$route', '$rootScope', '$scope', '$location', 'common', 'datacontext', 'backendHubProxy', 'userService', proposals]);
 
-    function proposals($interval,$route, $rootScope, $scope, $location, common, datacontext, backendFactory, userService) {
+    function proposals($interval, $route, $rootScope, $scope, $location, common, datacontext, backendFactory, userService) {
 
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -13,16 +13,6 @@
         var hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
         //var hub = backendFactory.createConnection("http://localhost:6951/", 'stickyNotesHub');
 
-        $scope.$on('$routeChangeStart', function () {
-            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
-        });
-
-        $scope.$on('$locationChangeStart', function() {
-            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
-        });
-        $scope.$on('$locationChangeSuccess', function() {
-            hub = backendFactory.createConnection("http://neighbourscommunity.azurewebsites.net/", 'stickyNotesHub');
-        });
 
         vm.isLogged = userService.isLogged();
         vm.proposals = [];
@@ -40,9 +30,21 @@
             $location.path('/');
         }
 
+         //Closing connection on route change. Angular 
+        $rootScope.$on('$stateChangeStart', function () {
+
+            console.log('aaaaaaaaa');
+            hub.connection.stop();
+        });
+
+        //$scope.$on('$routeChangeStart', hub.connection.stop());
+
+        //$scope.$on('$locationChangeStart', hub.connection.stop());
+        //$scope.$on('$locationChangeSuccess', hub.connection.stop());
+
         // SignalR
         hub.on("refresh", function (data) {
-            setTimeout(getProposals(token),1000);
+            setTimeout(getProposals(token), 1000);
         });
 
         hub.on("refreshAndRedirect", function (data) {
@@ -52,14 +54,14 @@
 
             if (currentRoute.loadedTemplateUrl === 'app/proposal/proposals.html') {
                 $route.reload();
-            } 
+            }
 
         });
 
         vm.voteUp = function voteUp(id, token) {
             console.log('vote');
             hub.invoke('VoteProposal', function (data) {
-                datacontext.voteUp(id, token).then(setTimeout(function () { getProposals(token) },0));
+                datacontext.voteUp(id, token).then(setTimeout(function () { getProposals(token) }, 0));
             });
         }
 
@@ -106,7 +108,7 @@
 
 
         function getVotesUp(proposal) {
-            var votes = proposal.votes.filter(function(v) {
+            var votes = proposal.votes.filter(function (v) {
                 return v.optionId === 1;
             });
 
