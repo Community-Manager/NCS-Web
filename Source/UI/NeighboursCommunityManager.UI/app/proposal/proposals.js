@@ -15,6 +15,8 @@
 
         vm.isLogged = userService.isLogged();
         vm.proposals = [];
+        vm.votesUp = [];
+        vm.votesDown = [];
         vm.title = "Proposals";
         vm.tokenUser = localStorage.getItem('token');
         vm.userId = localStorage.getItem('userId');
@@ -29,19 +31,19 @@
 
         // SignalR
         hub.on("refresh", function (data) {
-            getProposals(token);
+            setTimeout(getProposals(token),1000);
         });
 
         vm.voteUp = function voteUp(id, token) {
             console.log('vote');
             hub.invoke('VoteUpProposal', function (data) {
-                datacontext.voteUp(id, token).then(setTimeout(function () { getProposals(token) }, 500));
+                datacontext.voteUp(id, token).then(setTimeout(function () { getProposals(token) },0));
             });
         }
 
         vm.voteDown = function voteDown(id, token) {
             hub.invoke('VoteUpProposal', function (data) {
-                datacontext.voteDown(id, token).then(setTimeout(function () { getProposals(token) }, 500));
+                datacontext.voteDown(id, token).then(setTimeout(function () { getProposals(token) }, 0));
             });
         }
 
@@ -69,8 +71,32 @@
             return datacontext.getProposalsPartials(token).then(function (data) {
 
                 vm.proposals = data;
+
+                for (var i in vm.proposals) {
+                    vm.proposals[i].votesUp = getVotesUp(vm.proposals[i]);
+                    vm.proposals[i].votesDown = getVotesDown(vm.proposals[i]);
+                }
+                console.log(vm.proposals);
                 return vm.proposals;
             });
         }
+
+
+        function getVotesUp(proposal) {
+            var votes = proposal.votes.filter(function(v) {
+                return v.optionId === 1;
+            });
+
+            return votes.length;
+        }
+
+        function getVotesDown(proposal) {
+            var votes = proposal.votes.filter(function (v) {
+                return v.optionId === 2;
+            });
+
+            return votes.length;
+        }
+
     }
 })();
