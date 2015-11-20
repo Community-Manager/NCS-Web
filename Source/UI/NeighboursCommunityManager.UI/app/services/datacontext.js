@@ -26,7 +26,8 @@
             getCommunitiesByUser: getCommunitiesByUser,
             addProposal: addProposal,
             addCommunity: addCommunity,
-            registerAdminAndCommunity: registerAdminAndCommunity
+            registerAdminAndCommunity: registerAdminAndCommunity,
+            invite: invite
         };
 
         return service;
@@ -61,7 +62,7 @@
                     "Authorization": "Bearer " + token
                 },
             };
-            
+
             return EntityQuery.from('Get')
                 .expand(['author', 'votes'])
                 .select('id, description,title, author.firstName, author.lastName, votes')
@@ -108,8 +109,28 @@
                 .success(function querySucceeded(data) {
                     if (data == 1) {
                         logSuccess('Voted down for proposal ' + id);
-                    }else if (data == 0) {
+                    } else if (data == 0) {
                         log('Removed vote for proposal ' + id);
+                    }
+                }).error(function (data) {
+                    console.log(data);
+                });
+            return $q.when();
+        }
+
+        function invite(invite) {
+            var url = config.remoteServiceName + "api/invitations/SendInvitation";
+
+            $http({
+                method: 'POST',
+                url: url,
+                data: { email: invite.email, communityKey: invite.communityKey}
+            })
+                .success(function querySucceeded(data) {
+                    if (data == 1) {
+                        logSuccess('invite sent to ' + invite.email);
+                    } else if (data == 0) {
+                        log('Removed vote for proposal ' + invite.email);
                     }
                 }).error(function (data) {
                     console.log(data);
@@ -154,7 +175,7 @@
             );
         }
 
-        function addCommunity(community,token) {
+        function addCommunity(community, token) {
 
             var url = config.remoteServiceName + "api/communities/PostCommunityByLoggedAdmin";
 
@@ -164,7 +185,7 @@
                 params: {
                     action: "post"
                 },
-                data: ({Name: community.Name, Description: community.Description }),
+                data: ({ Name: community.Name, Description: community.Description }),
                 headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
             });
 
@@ -190,15 +211,15 @@
                 data: ({
                     email: userWithCommunity.email,
                     password: userWithCommunity.password,
-                    firstname:userWithCommunity.firstName,
+                    firstname: userWithCommunity.firstName,
                     lastname: userWithCommunity.lastName,
                     appartmentnumber: userWithCommunity.apartmentNumber,
                     communitymodel: {
-                        name:communityName,
-                        description:communityDescription
+                        name: communityName,
+                        description: communityDescription
                     },
                 }),
-                headers: {'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
             });
 
             return (request.then(querySucceeded, _queryFailed));
@@ -226,8 +247,8 @@
                     localStorage.setItem('token', data.access_token);
                     localStorage.setItem('userId', data.userId);
                     logSuccess(email + ' logged in.')
-                    getRole(data.userId, data.access_token);   
-                    
+                    getRole(data.userId, data.access_token);
+
 
                 }).error(function (data) {
 
@@ -302,7 +323,7 @@
         }
 
         function getCommunitiesByUser(userId) {
-            var url = config.remoteServiceName + "api/communities?userId="+userId;
+            var url = config.remoteServiceName + "api/communities?userId=" + userId;
             var communities = null;
 
             return $q.all($http({
@@ -316,11 +337,11 @@
                 //console.log(data);
                 //console.log('===============================')
 
-            }).error(function(data) {
+            }).error(function (data) {
 
             }));
 
-            
+
 
         }
 
