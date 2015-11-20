@@ -124,14 +124,13 @@
             $http({
                 method: 'POST',
                 url: url,
-                data: { email: invite.email, communityKey: invite.communityKey}
+                data: { email: invite.email, communityKey: invite.communityKey }
             })
                 .success(function querySucceeded(data) {
-                    if (data == 1) {
-                        logSuccess('invite sent to ' + invite.email);
-                    } else if (data == 0) {
-                        log('Removed vote for proposal ' + invite.email);
-                    }
+
+                    logSuccess('Invite sent to ' + invite.email);
+                    $location.path('/');
+
                 }).error(function (data) {
                     console.log(data);
                 });
@@ -275,7 +274,8 @@
                         password: user.password,
                         confirmPassword: user.confirmPassword,
                         isAdmin: user.isAdmin,
-                        isAccountant: user.isAccountant
+                        isAccountant: user.isAccountant,
+                        verificationToken: user.verificationToken
 
                     },
                     headers: { 'Content-Type': 'application/json' },
